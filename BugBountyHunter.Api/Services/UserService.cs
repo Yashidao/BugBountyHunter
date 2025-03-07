@@ -51,7 +51,49 @@ namespace BugBountyHunter.Api.Services
             catch (Exception ex)
             {
                 return QueryResult<UserEntity?>.Failure(ex.Message, ex);
-            }          
+            }
+        }
+
+        public CommandResult Execute(UpdateRoleCommand userToUpdate)
+        {
+            try
+            {
+                UserEntity? userById = _context.Users.SingleOrDefault(x => x.Id == userToUpdate.Id);
+                if (userById is null)
+                {
+                    return CommandResult.Failure("Cet userId n'existe pas dans notre base de donnée");
+                }
+
+                userById!.Role = userToUpdate.Role;
+
+                _context.SaveChanges();
+                return CommandResult.Success();
+            }
+            catch (Exception ex)
+            {
+                return CommandResult.Failure($"{ex.Message}", ex);
+            }
+        }
+
+        public CommandResult Execute(UpdateRewardCommand userUpdateReward)
+        {
+            try
+            {
+                UserEntity? userById = _context.Users.SingleOrDefault(x => x.Id == userUpdateReward.Id);
+                if (userById is null)
+                {
+                    return CommandResult.Failure("Cet userId n'existe pas dans notre base de donnée");
+                }
+
+                userById.Reward += userUpdateReward.Amount;
+
+                _context.SaveChanges();
+                return CommandResult.Success();
+            }
+            catch (Exception ex)
+            {
+                return CommandResult.Failure($"{ex.Message}", ex);
+            }
         }
     }
 }

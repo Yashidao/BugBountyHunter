@@ -6,7 +6,11 @@ using BugBountyHunter.Tools.Queries;
 
 namespace BugBountyHunter.Api.Repositories
 {
-    public interface IUserRepository : ICommandHandler<RegisterCommand>, IQueryHandler<LoginQuery, UserEntity?>
+    public interface IUserRepository : 
+        ICommandHandler<RegisterCommand>, 
+        ICommandHandler<UpdateRoleCommand>,
+        ICommandHandler<UpdateRewardCommand>,
+        IQueryHandler<LoginQuery, UserEntity?>
     {
     }
 }

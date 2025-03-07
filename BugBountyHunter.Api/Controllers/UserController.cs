@@ -34,7 +34,7 @@ namespace BugBountyHunter.Api.Controllers
             }
             return Ok(result.IsSuccess);
         }
-        [HttpPost("Login")]
+        [HttpPost("login")]
         public IActionResult Login(LoginQuery userToLogin)
         {
             QueryResult<UserEntity?> result = _us.Execute(userToLogin);
@@ -43,6 +43,32 @@ namespace BugBountyHunter.Api.Controllers
                 return BadRequest(result.ErrorMessage);
             }
             return Ok(result.Result);
+        }
+        [HttpPost("updateRole")]
+        public IActionResult Update(UpdateRoleCommand userToUpdateRole)
+        {
+            CommandResult result = _us.Execute(userToUpdateRole);
+            if (result.IsFailure)
+            {
+#if DEBUG
+                return BadRequest($"{result.ErrorMessage}\n{result.Exception}");
+#endif
+                return BadRequest(result.ErrorMessage);
+            }
+            return Ok(result.IsSuccess);
+        }
+        [HttpPost("updateReward")]
+        public IActionResult Update(UpdateRewardCommand userToUpdateReward)
+        {
+            CommandResult result = _us.Execute(userToUpdateReward);
+            if (result.IsFailure)
+            {
+#if DEBUG
+                return BadRequest($"{result.ErrorMessage}\n{result.Exception}");
+#endif
+                return BadRequest(result.ErrorMessage);
+            }
+            return Ok(result.IsSuccess);
         }
     }
 }
