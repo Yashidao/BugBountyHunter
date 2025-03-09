@@ -1,6 +1,6 @@
-﻿using BugBountyHunter.Api.Commands;
+﻿using BugBountyHunter.Api.Commands.User;
 using BugBountyHunter.Api.DataBase.Entities;
-using BugBountyHunter.Api.Queries;
+using BugBountyHunter.Api.Queries.User;
 using BugBountyHunter.Tools.Commands;
 using BugBountyHunter.Tools.Queries;
 

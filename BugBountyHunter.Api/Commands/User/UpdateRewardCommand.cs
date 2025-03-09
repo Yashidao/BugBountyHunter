@@ -1,6 +1,6 @@
 ﻿using BugBountyHunter.Tools.Commands;
 
-namespace BugBountyHunter.Api.Commands
+namespace BugBountyHunter.Api.Commands.User
 {
     public class UpdateRewardCommand : ICommandDefinition
     {
