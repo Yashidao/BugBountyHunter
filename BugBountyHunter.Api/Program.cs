@@ -21,6 +21,7 @@ builder.Services.AddScoped<IDataContext, DbBugBountyHunterContext>(s =>
     return new DbBugBountyHunterContext(options);
 });
 builder.Services.AddScoped<IUserRepository, UserService>();
+builder.Services.AddScoped<IEtsRepository, EtsService>();
 
 var app = builder.Build();
 
