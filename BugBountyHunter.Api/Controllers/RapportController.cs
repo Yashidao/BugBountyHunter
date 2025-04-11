@@ -1,10 +1,12 @@
-﻿using BugBountyHunter.Api.Commands.Ets;
+﻿using BugBountyHunter.Api.Commands.Rapport;
+using BugBountyHunter.Api.DataBase.Context;
 using BugBountyHunter.Api.Dtos;
-using BugBountyHunter.Api.Queries.Ets;
+using BugBountyHunter.Api.Queries.Rapport;
 using BugBountyHunter.Api.Repositories;
 using BugBountyHunter.Tools.Commands;
 using BugBountyHunter.Tools.Queries;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BugBountyHunter.Api.Controllers
@@ -12,19 +14,19 @@ namespace BugBountyHunter.Api.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [AllowAnonymous]
-    public class EtsController : ControllerBase
+    public class RapportController : ControllerBase
     {
-        private readonly IEtsRepository _ets;
+        private readonly IRapportRepository _rap;
 
-        public EtsController(IEtsRepository ets)
+        public RapportController(IRapportRepository rap)
         {
-            _ets = ets;
+            _rap = rap;
         }
 
         [HttpPost("insert")]
-        public IActionResult Insert(AddEtsCommand etsToInsert)
+        public IActionResult Insert(AddRapportCommand command)
         {
-            CommandResult result = _ets.Execute(etsToInsert);
+            CommandResult result = _rap.Execute(command);
             if (result.IsFailure)
             {
 #if DEBUG
@@ -35,10 +37,10 @@ namespace BugBountyHunter.Api.Controllers
             return Ok(result.IsSuccess);
         }
 
-        [HttpPost("updateEts")]
-        public IActionResult Update(UpdateEtsCommand etsToUpdate)
+        [HttpPost("updateAll")]
+        public IActionResult UpdateAll(UpdateAllRapportCommand command)
         {
-            CommandResult result = _ets.Execute(etsToUpdate);
+            CommandResult result = _rap.Execute(command);
             if (result.IsFailure)
             {
 #if DEBUG
@@ -49,10 +51,10 @@ namespace BugBountyHunter.Api.Controllers
             return Ok(result.IsSuccess);
         }
 
-        [HttpPost("getEtsById")]
-        public IActionResult GetEtsById(GetEtsByIdQuery query)
+        [HttpPost("getAllRapport")]
+        public IActionResult GetAllRapport(GetAllRapportQuery query)
         {
-            QueryResult<EtsDto> result = _ets.Execute(query);
+            QueryResult<IEnumerable<RapportDto>> result = _rap.Execute(query);
             if (result.IsFailure)
             {
 #if DEBUG
@@ -60,21 +62,7 @@ namespace BugBountyHunter.Api.Controllers
 #endif
                 return BadRequest(result.ErrorMessage);
             }
-            return Ok(result.Result);
-        }
-
-        [HttpPost("getAllEts")]
-        public IActionResult GetAllEts(GetAllEtsQuery query)
-        {
-            QueryResult<IEnumerable<EtsDto>> result = _ets.Execute(query);
-            if (result.IsFailure)
-            {
-#if DEBUG
-                return BadRequest($"{result.ErrorMessage}\n{result.Exception}");
-#endif
-                return BadRequest(result.ErrorMessage);
-            }
-            return Ok(result.Result);
+            return Ok(result.IsSuccess);
         }
     }
 }

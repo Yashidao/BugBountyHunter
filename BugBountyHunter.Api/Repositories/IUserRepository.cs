@@ -10,7 +10,9 @@ namespace BugBountyHunter.Api.Repositories
         ICommandHandler<RegisterCommand>, 
         ICommandHandler<UpdateRoleCommand>,
         ICommandHandler<UpdateRewardCommand>,
-        IQueryHandler<LoginQuery, UserEntity?>
+        IQueryHandler<LoginQuery, UserEntity?>,
+        IQueryHandler<GetUserQuery, UserEntity?>,
+        IQueryHandler<GetAllUsersQuery, IEnumerable<UserEntity?>>
     {
     }
 }

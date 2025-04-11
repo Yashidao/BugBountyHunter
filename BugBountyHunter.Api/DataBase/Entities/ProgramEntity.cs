@@ -8,7 +8,7 @@ namespace BugBountyHunter.Api.DataBase.Entities
         public int Id { get; set; }
         public required string Name { get; set; }
         public required int EtsId { get; set; }
-        public required EtsEntity Ets { get; set; }
-        public IEnumerable<RapportEntity> Rapports { get; set; } = [];
+        public EtsEntity? Ets { get; set; }
+        public IEnumerable<RapportEntity> Rapports { get; set; } = new List<RapportEntity>();
     }
 }

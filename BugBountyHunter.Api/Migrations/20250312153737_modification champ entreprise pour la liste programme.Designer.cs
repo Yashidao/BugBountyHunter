@@ -4,6 +4,7 @@ using BugBountyHunter.Api.DataBase.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BugBountyHunter.Api.Migrations
 {
     [DbContext(typeof(DbBugBountyHunterContext))]
-    partial class DbBugBountyHunterContextModelSnapshot : ModelSnapshot
+    [Migration("20250312153737_modification champ entreprise pour la liste programme")]
+    partial class modificationchampentreprisepourlalisteprogramme
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -7,6 +7,6 @@ namespace BugBountyHunter.Api.DataBase.Entities
         [Key]
         public int Id { get; set; }
         public required string Name { get; set; }
-        public IEnumerable<ProgramEntity> Programs { get; set; } = [];
+        public IEnumerable<ProgramEntity> Programs { get; set; } = new List<ProgramEntity>();
     }
 }

@@ -95,5 +95,39 @@ namespace BugBountyHunter.Api.Services
                 return CommandResult.Failure($"{ex.Message}", ex);
             }
         }
+
+        public QueryResult<UserEntity?> Execute(GetUserQuery query)
+        {
+            try
+            {
+                UserEntity? entity = _context.Users.SingleOrDefault(x => x.Email == query.Email);
+                if (entity is null)
+                {
+                    return QueryResult<UserEntity?>.Failure("Aucun utilisateur ne correspond à cet adresse email.");
+                }
+                return QueryResult<UserEntity>.Success(entity)!;
+            }
+            catch (Exception ex)
+            {
+                return QueryResult<UserEntity?>.Failure(ex.Message, ex);
+            }
+        }
+
+        public QueryResult<IEnumerable<UserEntity?>> Execute(GetAllUsersQuery query)
+        {
+            try
+            {
+                List<UserEntity>? entityList = _context.Users.ToList();
+                if (entityList is null)
+                {
+                    return QueryResult<IEnumerable<UserEntity?>>.Failure("Aucun utilisateur trouvé. WTF");
+                }
+                return QueryResult<IEnumerable<UserEntity?>>.Success(entityList)!;
+            }
+            catch (Exception ex)
+            {
+                return QueryResult<IEnumerable<UserEntity?>>.Failure(ex.Message, ex);
+            }
+        }
     }
 }
